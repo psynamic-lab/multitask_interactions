@@ -1,0 +1,9 @@
+# Analysis notebooks are exploratory; don't gate commits on their style.
+extend-exclude = ["*.ipynb"]
+
+[lint]
+# Scripts in this repo bootstrap the repo root onto sys.path before importing
+# project packages, so module-level imports legitimately follow executable code.
+# EXE001: these are run as `python scripts/x.py` (and via $PY in sbatch), never
+# executed directly, so the shebang is documentation and the +x bit is not wanted.
+ignore = ["E402", "EXE001"]

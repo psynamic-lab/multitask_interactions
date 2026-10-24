@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mtl"
+version = "0.1.0"
+description = "Multitask interactions in recurrent dynamics across 100 cognitive tasks"
+requires-python = ">=3.12"
+
+# Dependencies live in environment.yml and are owned by conda. This list stays
+# empty so `pip install -e .` only registers the import path and never touches
+# the environment's packages.
+dependencies = []
+
+# Flat layout: mtl/ sits at the repo root. The explicit include is required --
+# without it setuptools also discovers tasks/, others/ and foundation_model/ and
+# refuses with "Multiple top-level packages discovered".
+[tool.setuptools.packages.find]
+where = ["."]
+# `tasks` is the 100-task battery: a top-level package in its own right, imported
+# by mtl, by the scripts and by 32 notebooks. Listing it here is what retired
+# mtl/_legacy.py, which used to put the repo root on sys.path to reach it.
+include = ["mtl*", "tasks*"]
